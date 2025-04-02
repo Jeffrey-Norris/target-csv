@@ -39,6 +39,9 @@ def write_csv(filepath: Path, records: List[dict], schema: dict, **kwargs: Any) 
 
     return record_count
 
+def count_rows(filepath: Path, records: List[dict], schema: dict, **kwargs: Any):
+    record_count = len(records)
+    return record_count
 
 def read_csv(filepath: Path) -> List[dict]:
     """Read a CSV file."""
