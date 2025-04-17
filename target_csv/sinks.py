@@ -23,10 +23,12 @@ class CSVSink(BatchSink):
         target: Target,
         stream_name: str,
         schema: Dict,
+        state:Dict = None,
         key_properties: Optional[List[str]],
     ) -> None:
+        self.state = state
         self._timestamp_time: Optional[datetime.datetime] = None
-        super().__init__(target, stream_name, schema, key_properties)
+        super().__init__(target, stream_name, schema, key_properties, state)
 
     @property
     def timestamp_time(self) -> datetime.datetime:  # noqa: D102
