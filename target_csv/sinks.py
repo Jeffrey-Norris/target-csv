@@ -23,7 +23,7 @@ class CSVSink(BatchSink):
         target: Target,
         stream_name: str,
         schema: Dict,
-        state:Dict = None,
+        state:Dict,
         key_properties: Optional[List[str]],
     ) -> None:
         self.state = state
