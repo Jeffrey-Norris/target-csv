@@ -24,10 +24,9 @@ class CSVSink(BatchSink):
         stream_name: str,
         schema: Dict,
         key_properties: Optional[List[str]],
-        state: Dict
     ) -> None:
         self._timestamp_time: Optional[datetime.datetime] = None
-        super().__init__(target, stream_name, schema, key_properties, state)
+        super().__init__(target, stream_name, schema, key_properties)
 
     @property
     def timestamp_time(self) -> datetime.datetime:  # noqa: D102
@@ -100,7 +99,7 @@ class CSVSink(BatchSink):
             records = sorted(records, key=lambda x: x[sort_property_name])
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
-        self.logger.info(f"record count: {state['record_count']}")
+        self.logger.info(f"record count: {target['record_count']}")
 
         write_csv(
             output_file,
