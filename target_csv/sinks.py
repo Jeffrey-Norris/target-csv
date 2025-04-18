@@ -77,7 +77,7 @@ class CSVSink(BatchSink):
 
         return filepath
 
-    def process_batch(self, context: dict) -> None:
+    def process_batch(self, context: dict, target) -> None:
         """Write out any prepped records and return once fully written."""
         output_file: Path = self.output_file
         self.logger.info(f"Writing to destination file '{output_file.resolve()}'...")
