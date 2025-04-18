@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import pytz
-import singer
+from singer import *
 import singer.metadata as metadata
 import singer.metrics as metrics
 from singer_sdk import Target
