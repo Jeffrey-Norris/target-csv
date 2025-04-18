@@ -98,9 +98,6 @@ class CSVSink(BatchSink):
             sort_property_name = self.config["record_sort_property_name"]
             records = sorted(records, key=lambda x: x[sort_property_name])
 
-        state = singer.write_bookmark(state,
-                                 stream.tap_stream_id)
-
         self.logger.info(f"Writing {len(context['records'])} records to file...")
         self.logger.info(f"record count: {self.config}")
         
