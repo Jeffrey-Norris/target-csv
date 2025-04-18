@@ -102,8 +102,8 @@ class CSVSink(BatchSink):
                                  stream.tap_stream_id)
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
-        self.logger.info(f"record count: {self.key_properties}")
-        singer.write_message(singer.StateMessage(value=copy.deepcopy(state)))
+        self.logger.info(f"record count: {self.config}")
+        
 
         write_csv(
             output_file,
