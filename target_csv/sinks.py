@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import pytz
+import singer
 from singer_sdk import Target
 from singer_sdk import write_message
 from singer_sdk.sinks import BatchSink
@@ -101,7 +102,7 @@ class CSVSink(BatchSink):
 
         state = singer.write_bookmark(state,
                                  stream.tap_stream_id)
-                                 
+
         self.logger.info(f"Writing {len(context['records'])} records to file...")
         self.logger.info(f"record count: {self.key_properties}")
         singer.write_message(singer.StateMessage(value=copy.deepcopy(state)))
