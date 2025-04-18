@@ -8,7 +8,6 @@ from typing import Any, Dict, List, Optional
 
 import pytz
 from singer_sdk import Target
-from singer_sdk import write_message
 from singer_sdk.sinks import BatchSink
 
 from target_csv.serialization import write_csv
