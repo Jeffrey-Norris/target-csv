@@ -101,7 +101,6 @@ class CSVSink(BatchSink):
             records = sorted(records, key=lambda x: x[sort_property_name])
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
-        s
         
         with open('outfile.singer.jsonl', 'r') as file:
             for line in file:
