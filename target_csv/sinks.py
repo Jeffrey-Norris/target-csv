@@ -101,13 +101,8 @@ class CSVSink(BatchSink):
             records = sorted(records, key=lambda x: x[sort_property_name])
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
-        
-        with open('outfile.singer.jsonl', 'r') as file:
-            for line in file:
-                message = json.loads(line)
-                if message['type'] == 'STATE':
-                    self.logger.info(f"record count: True")
-                    self.sinks[0].process_state_message(message)
+        self.logger.info(f"record count: True")
+
             
 
         write_csv(
