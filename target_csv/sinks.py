@@ -77,7 +77,7 @@ class CSVSink(BatchSink):
 
         return filepath
 
-    def process_batch(self, context: dict, target) -> None:
+    def process_batch(self, context: dict) -> None:
         """Write out any prepped records and return once fully written."""
         output_file: Path = self.output_file
         self.logger.info(f"Writing to destination file '{output_file.resolve()}'...")
@@ -99,7 +99,7 @@ class CSVSink(BatchSink):
             records = sorted(records, key=lambda x: x[sort_property_name])
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
-        self.logger.info(f"record count: {target.state}")
+        self.logger.info(f"record count: {context["records"]}")
         
 
         write_csv(
