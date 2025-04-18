@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional
 
 import pytz
 from singer_sdk import Target
+from singer_sdk import write_message
 from singer_sdk.sinks import BatchSink
 
 from target_csv.serialization import write_csv
@@ -98,8 +99,12 @@ class CSVSink(BatchSink):
             sort_property_name = self.config["record_sort_property_name"]
             records = sorted(records, key=lambda x: x[sort_property_name])
 
+        state = singer.write_bookmark(state,
+                                 stream.tap_stream_id)
+                                 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
         self.logger.info(f"record count: {self.key_properties}")
+        singer.write_message(singer.StateMessage(value=copy.deepcopy(state)))
 
         write_csv(
             output_file,
