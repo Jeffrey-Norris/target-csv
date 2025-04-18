@@ -101,7 +101,7 @@ class CSVSink(BatchSink):
             records = sorted(records, key=lambda x: x[sort_property_name])
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
-        self.logger.info(f"record count: {Target}")
+        self.logger.info(f"record count: {self.stream_name}")
 
         write_csv(
             output_file,
