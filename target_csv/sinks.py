@@ -77,6 +77,17 @@ class CSVSink(BatchSink):
 
         return filepath
 
+    
+    def sync(self):
+     # Read JSON messages from a file (for example)
+        with open('outfile.singer.jsonl', 'r') as file:
+            for line in file:
+                message = json.loads(line)
+                if message['type'] == 'STATE':
+                    self.sinks[0].process_state_message(message)
+        return message
+
+
     def process_batch(self, context: dict) -> None:
         """Write out any prepped records and return once fully written."""
         output_file: Path = self.output_file
@@ -99,7 +110,7 @@ class CSVSink(BatchSink):
             records = sorted(records, key=lambda x: x[sort_property_name])
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
-        self.logger.info(f"record count: {context['records']}")
+        self.logger.info(f"record count: {target.sync()}")
         
 
         write_csv(
