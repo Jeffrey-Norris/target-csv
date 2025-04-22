@@ -103,7 +103,7 @@ class CSVSink(BatchSink):
         self.logger.info(f"Writing {len(context['records'])} records to file...")
         self.logger.info(f"{self}")
         self.logger.info(f"record count: True")
-
+        singer.write_message(singer.StateMessage(value=index))
             
 
         write_csv(
