@@ -2,6 +2,7 @@
 
 import datetime
 import sys
+import json
 import warnings
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -111,3 +112,16 @@ class CSVSink(BatchSink):
             self.schema,
             escapechar=self.config.get("escape_character"),
         )
+
+    def emit_metric(name, value, stream=None):
+    metric = {
+        "type": "METRIC",
+        "metric": name,
+        "value": value,
+        "tags": {}
+    }
+    if stream:
+        metric["tags"]["stream"] = stream
+    print(json.dumps(metric))
+
+emit_metric("record_count", 2422, stream="ISTFEEDS-TEAMWORKS_V")
