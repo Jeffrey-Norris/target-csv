@@ -114,14 +114,14 @@ class CSVSink(BatchSink):
         )
 
     def emit_metric(name, value, stream=None):
-    metric = {
-        "type": "METRIC",
-        "metric": name,
-        "value": value,
-        "tags": {}
-    }
-    if stream:
-        metric["tags"]["stream"] = stream
-    print(json.dumps(metric))
+        metric = {
+            "type": "METRIC",
+            "metric": name,
+            "value": value,
+            "tags": {}
+        }
+        if stream:
+            metric["tags"]["stream"] = stream
+        print(json.dumps(metric))
 
-emit_metric("record_count", 2422, stream="ISTFEEDS-TEAMWORKS_V")
+    emit_metric("record_count", 2422, stream="ISTFEEDS-TEAMWORKS_V")
