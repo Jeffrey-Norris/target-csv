@@ -78,16 +78,13 @@ class CSVSink(BatchSink):
 
         return filepath
 
-    def emit_metric(name):
+    def emit_metric(self, name, value, stream=None):
         metric = {
             "type": "METRIC",
             "metric": name,
             "value": value,
             "tags": {}
         }
-
-        stream="ISTFEEDS-TEAMWORKS_V"
-
         if stream:
             metric["tags"]["stream"] = stream
         print(json.dumps(metric))
@@ -119,7 +116,7 @@ class CSVSink(BatchSink):
         #self.logger.info(f"keys: {self.metadata}")
         self.logger.info(f"record count: True")
             
-        self.emit_metric("record_count")
+        self.emit_metric("record_count", 2422, stream="ISTFEEDS-TEAMWORKS_V")
 
         write_csv(
             output_file,
