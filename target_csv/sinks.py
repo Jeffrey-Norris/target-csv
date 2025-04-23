@@ -78,7 +78,18 @@ class CSVSink(BatchSink):
 
         return filepath
 
-    
+    def emit_metric(name, value, stream=None):
+        metric = {
+            "type": "METRIC",
+            "metric": name,
+            "value": value,
+            "tags": {}
+        }
+        if stream:
+            metric["tags"]["stream"] = stream
+        print(json.dumps(metric))
+
+   
 
     def process_batch(self, context: dict) -> None:
         """Write out any prepped records and return once fully written."""
@@ -105,6 +116,7 @@ class CSVSink(BatchSink):
         #self.logger.info(f"keys: {self.metadata}")
         self.logger.info(f"record count: True")
             
+         emit_metric("record_count", 2422, stream="ISTFEEDS-TEAMWORKS_V")
 
         write_csv(
             output_file,
@@ -113,15 +125,4 @@ class CSVSink(BatchSink):
             escapechar=self.config.get("escape_character"),
         )
 
-    def emit_metric(name, value, stream=None):
-        metric = {
-            "type": "METRIC",
-            "metric": name,
-            "value": value,
-            "tags": {}
-        }
-        if stream:
-            metric["tags"]["stream"] = stream
-        print(json.dumps(metric))
-
-    emit_metric("record_count", 2422, stream="ISTFEEDS-TEAMWORKS_V")
+    
