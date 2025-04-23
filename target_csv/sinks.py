@@ -101,7 +101,7 @@ class CSVSink(BatchSink):
             records = sorted(records, key=lambda x: x[sort_property_name])
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
-        self.logger.info(f"{self.Stream.tap_state}")
+        self.logger.info(f"{context}")
         self.logger.info(f"record count: True")
             
 
