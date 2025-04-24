@@ -97,7 +97,7 @@ class CSVSink(BatchSink):
        
         print("Metric end")
 
-    def find_json(self)
+    def find_json(self):
         self.logger.info(f"running...")
         with open("metrics.jsonl", "a") as f:
             self.logger.info(f"opened")
