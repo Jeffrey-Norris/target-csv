@@ -98,7 +98,9 @@ class CSVSink(BatchSink):
         print("Metric end")
 
     def find_json(self):
+        self.logger.info(f"running")
         for line in sys.stdin:
+            self.logger.info(f"running")
             try:
                 message = json.loads(line)
                 self.logger.info(f"message: {message}")
