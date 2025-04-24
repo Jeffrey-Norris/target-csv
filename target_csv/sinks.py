@@ -107,6 +107,7 @@ class CSVSink(BatchSink):
             for line in sys.stdin:
                 try:
                     message = json.loads(line)
+                    print(f"message: {message}")
                     if message.get("type") == "METRIC":
                         metrics_file.write(json.dumps(message) + "\n")
                         metrics_file.flush()
