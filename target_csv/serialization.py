@@ -37,8 +37,6 @@ def write_csv(filepath: Path, records: List[dict], schema: dict, **kwargs: Any) 
         for record_count, record in enumerate(records, start=1):
             writer.writerow(record)
 
-    #emit_metric("record_count", stream="ISTFEEDS-TEAMWORKS_V")
-
     return record_count
 
 

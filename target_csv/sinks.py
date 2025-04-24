@@ -98,7 +98,7 @@ class CSVSink(BatchSink):
         print("Metric end")
 
     def get_meltano_state(self, job_id):
-        print("start meltano state")
+        print(f"start meltano state")
         try:
             result = subprocess.run(
                 ["meltano", "state", "get", "--job_id", job_id],
@@ -107,12 +107,12 @@ class CSVSink(BatchSink):
                 check=True
             )
             state = json.loads(result.stdout)
-            print("meltano state: ")
+            print(f"meltano state: ")
             return state
         except subprocess.CalledProcessError as e:
             print(f"[ERROR] Failed to get Meltano state: {e.stderr}")
             return None
-        print("start meltano state")
+        print(f"start meltano state")
 
     def process_batch(self, context: dict) -> None:
         """Write out any prepped records and return once fully written."""
@@ -148,5 +148,5 @@ class CSVSink(BatchSink):
             self.schema,
             escapechar=self.config.get("escape_character"),
         )
-        #self.emit_metric("record_count", stream="ISTFEEDS-TEAMWORKS_V")
+       
     
