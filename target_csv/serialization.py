@@ -23,7 +23,7 @@ def create_folder_if_not_exists(
 
     return wrapper
 
-def emit_metric(self, name, stream=None):
+def emit_metric(name, stream=None):
         # metric = {
         #     "type": "METRIC",
         #     "metric": name,
