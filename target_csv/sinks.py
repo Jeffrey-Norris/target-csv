@@ -79,17 +79,22 @@ class CSVSink(BatchSink):
         return filepath
 
     def emit_metric(self, name, stream=None):
-        metric = {
-            "type": "METRIC",
-            "metric": name,
-            #"value": value,
-            "tags": {}
-        }
-        if stream:
-            metric["tags"]["stream"] = stream
+        # metric = {
+        #     "type": "METRIC",
+        #     "metric": name,
+        #     #"value": value,
+        #     "tags": {}
+        # }
+        # if stream:
+        #     metric["tags"]["stream"] = stream
+        
         print("Metric start")
-        print(json.dumps(metric))
-        print("Metric start")
+
+        for line in sys.stdin:
+            message = json.loads(line)
+            print(json.dumps(metric))
+       
+        print("Metric end")
 
    
 
