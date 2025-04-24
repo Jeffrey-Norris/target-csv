@@ -98,15 +98,29 @@ class CSVSink(BatchSink):
         print("Metric end")
 
     def find_json(self):
-        self.logger.info(f"running...")
-        with open("metrics.jsonl", "r") as f:
-            self.logger.info(f"opened")
-            for line in f:
+        # Set where to save metrics
+        metrics_path = Path("/tmp/metrics.jsonl")  # or wherever you want
+        metrics_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Open for appending
+        with open(metrics_path, "a") as metrics_file:
+            for line in sys.stdin:
                 try:
-                    metric = json.loads(line)
-                    print(f"Metric: {metric['metric']}, Value: {metric['value']}, Tags: {metric.get('tags')}")
-                except json.JSONDecodeError:
-                    print(f"[WARN] Skipping invalid line: {line}")
+                    message = json.loads(line)
+                    if message.get("type") == "METRIC":
+                        metrics_file.write(json.dumps(message) + "\n")
+                        metrics_file.flush()
+                except Exception as e:
+                    print(f"[ERROR] Failed to parse line: {line}", file=sys.stderr)
+        # self.logger.info(f"running...")
+        # with open("metrics.jsonl", "r") as f:
+        #     self.logger.info(f"opened")
+        #     for line in f:
+        #         try:
+        #             metric = json.loads(line)
+        #             print(f"Metric: {metric['metric']}, Value: {metric['value']}, Tags: {metric.get('tags')}")
+        #         except json.JSONDecodeError:
+        #             print(f"[WARN] Skipping invalid line: {line}")
 
     def get_meltano_state(self, job_id):
         print(f"start meltano state")
