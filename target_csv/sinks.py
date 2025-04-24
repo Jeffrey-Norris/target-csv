@@ -142,7 +142,7 @@ class CSVSink(BatchSink):
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
         #self.logger.info(f"keys: {self.metadata}")
-        @self.get_meltano_state("prod:tap-oracle-to-target-csv")
+        #self.get_meltano_state("prod:tap-oracle-to-target-csv")
         self.find_json()
         self.logger.info(f"record count: True")
             
