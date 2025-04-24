@@ -97,6 +97,11 @@ class CSVSink(BatchSink):
        
         print("Metric end")
 
+    def find_json(self)
+        self.logger.info(f"running...")
+        with open("metrics.jsonl", "a") as f:
+            self.logger.info(f"opened")
+
     def get_meltano_state(self, job_id):
         print(f"start meltano state")
         try:
@@ -137,7 +142,8 @@ class CSVSink(BatchSink):
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
         #self.logger.info(f"keys: {self.metadata}")
-        self.get_meltano_state("prod:tap-oracle-to-target-csv")
+        @self.get_meltano_state("prod:tap-oracle-to-target-csv")
+        self.find_json()
         self.logger.info(f"record count: True")
             
 
