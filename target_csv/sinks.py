@@ -82,7 +82,7 @@ class CSVSink(BatchSink):
         metric = {
             "type": "METRIC",
             "metric": name,
-            "value": value,
+            #"value": value,
             "tags": {}
         }
         if stream:
