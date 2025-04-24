@@ -99,8 +99,14 @@ class CSVSink(BatchSink):
 
     def find_json(self):
         self.logger.info(f"running...")
-        with open("metrics.jsonl", "a") as f:
+        with open("metrics.jsonl", "r") as f:
             self.logger.info(f"opened")
+            for line in f:
+                try:
+                    metric = json.loads(line)
+                    print(f"Metric: {metric['metric']}, Value: {metric['value']}, Tags: {metric.get('tags')}")
+                except json.JSONDecodeError:
+                    print(f"[WARN] Skipping invalid line: {line}")
 
     def get_meltano_state(self, job_id):
         print(f"start meltano state")
