@@ -88,10 +88,9 @@ class CSVSink(BatchSink):
         # if stream:
         #     metric["tags"]["stream"] = stream
         #print(json.dumps(metric))
-
         print("Metric start")
 
-        for line in sys.stderr:
+        for line in sys.stdin:
             message = json.loads(line)
             print(message)
        
