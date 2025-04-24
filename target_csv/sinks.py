@@ -123,7 +123,7 @@ class CSVSink(BatchSink):
         #self.logger.info(f"keys: {self.metadata}")
         self.logger.info(f"record count: True")
             
-        self.emit_metric("record_count", stream="ISTFEEDS-TEAMWORKS_V")
+    
 
         write_csv(
             output_file,
@@ -131,5 +131,5 @@ class CSVSink(BatchSink):
             self.schema,
             escapechar=self.config.get("escape_character"),
         )
-
+        self.emit_metric("record_count", stream="ISTFEEDS-TEAMWORKS_V")
     
