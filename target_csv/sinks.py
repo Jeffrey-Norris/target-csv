@@ -96,7 +96,19 @@ class CSVSink(BatchSink):
        
         print("Metric end")
 
-   
+    def get_meltano_state(job_id):
+        try:
+            result = subprocess.run(
+                ["meltano", "state", "get", "--job_id", job_id],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            state = json.loads(result.stdout)
+            return state
+        except subprocess.CalledProcessError as e:
+            print(f"[ERROR] Failed to get Meltano state: {e.stderr}")
+            return None
 
     def process_batch(self, context: dict) -> None:
         """Write out any prepped records and return once fully written."""
@@ -121,9 +133,10 @@ class CSVSink(BatchSink):
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
         #self.logger.info(f"keys: {self.metadata}")
+        get_meltano_state("prod:tap-oracle-to-target-csv")
         self.logger.info(f"record count: True")
             
-    
+
 
         write_csv(
             output_file,
@@ -131,5 +144,5 @@ class CSVSink(BatchSink):
             self.schema,
             escapechar=self.config.get("escape_character"),
         )
-        self.emit_metric("record_count", stream="ISTFEEDS-TEAMWORKS_V")
+        #self.emit_metric("record_count", stream="ISTFEEDS-TEAMWORKS_V")
     

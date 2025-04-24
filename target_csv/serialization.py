@@ -23,24 +23,6 @@ def create_folder_if_not_exists(
 
     return wrapper
 
-def emit_metric(name, stream=None):
-        # metric = {
-        #     "type": "METRIC",
-        #     "metric": name,
-        #     #"value": value,
-        #     "tags": {}
-        # }
-        # if stream:
-        #     metric["tags"]["stream"] = stream
-        #print(json.dumps(metric))
-        print("Metric start")
-
-        for line in sys.stdin:
-            message = json.loads(line)
-            print(message)
-       
-        print("Metric end")
-
 
 @create_folder_if_not_exists
 def write_csv(filepath: Path, records: List[dict], schema: dict, **kwargs: Any) -> int:
@@ -59,9 +41,6 @@ def write_csv(filepath: Path, records: List[dict], schema: dict, **kwargs: Any) 
 
     return record_count
 
-def count_rows(filepath: Path, records: List[dict], schema: dict, **kwargs: Any):
-    record_count = len(records)
-    return record_count
 
 def read_csv(filepath: Path) -> List[dict]:
     """Read a CSV file."""
