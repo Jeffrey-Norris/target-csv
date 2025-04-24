@@ -96,7 +96,7 @@ class CSVSink(BatchSink):
        
         print("Metric end")
 
-    def get_meltano_state(job_id):
+    def get_meltano_state(self, job_id):
         try:
             result = subprocess.run(
                 ["meltano", "state", "get", "--job_id", job_id],
@@ -133,7 +133,7 @@ class CSVSink(BatchSink):
 
         self.logger.info(f"Writing {len(context['records'])} records to file...")
         #self.logger.info(f"keys: {self.metadata}")
-        get_meltano_state("prod:tap-oracle-to-target-csv")
+        self.get_meltano_state("prod:tap-oracle-to-target-csv")
         self.logger.info(f"record count: True")
             
 
