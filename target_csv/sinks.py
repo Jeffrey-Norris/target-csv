@@ -91,12 +91,9 @@ class CSVSink(BatchSink):
 
         print("Metric start")
 
-        for line in sys.stdin:
-            try:
-                message = json.loads(line)
-                print(f"INPUT: {json.dumps(message)}", file=sys.stderr)
-            except Exception as e:
-                print(f"Failed to parse line: {line}", file=sys.stderr)
+        for line in sys.stderr:
+            message = json.loads(line)
+            print(message)
        
         print("Metric end")
 
