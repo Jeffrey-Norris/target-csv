@@ -98,21 +98,15 @@ class CSVSink(BatchSink):
         print("Metric end")
 
     def find_json(self):
-        # Set where to save metrics
-        metrics_path = Path("/tmp/metrics.jsonl")  # or wherever you want
-        metrics_path.parent.mkdir(parents=True, exist_ok=True)
-
-        # Open for appending
-        with open(metrics_path, "a") as metrics_file:
-            for line in sys.stdin:
-                try:
-                    message = json.loads(line)
-                    self.logger.info(f"message: {message}")
-                    if message.get("type") == "METRIC":
-                        metrics_file.write(json.dumps(message) + "\n")
-                        metrics_file.flush()
-                except Exception as e:
-                    print(f"[ERROR] Failed to parse line: {line}", file=sys.stderr)
+        for line in sys.stdin:
+            try:
+                message = json.loads(line)
+                self.logger.info(f"message: {message}")
+                if message.get("type") == "METRIC":
+                    metrics_file.write(json.dumps(message) + "\n")
+                    metrics_file.flush()
+            except Exception as e:
+                print(f"[ERROR] Failed to parse line: {line}", file=sys.stderr)
         # self.logger.info(f"running...")
         # with open("metrics.jsonl", "r") as f:
         #     self.logger.info(f"opened")
